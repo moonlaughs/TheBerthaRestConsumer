@@ -40,7 +40,7 @@ namespace TheBerthaRestConsumer.Controllers
 
         }
 
-        private Health ReadHealth(SqlDataReader reader)
+        internal static Health ReadHealth(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
             int bloodPressureUpper = reader.GetInt32(1);
