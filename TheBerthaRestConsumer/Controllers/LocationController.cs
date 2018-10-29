@@ -97,11 +97,11 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // POST: api/Books
+        // POST: api/Location
         [HttpPost]
         public int AddLocation([FromBody] Model.Location value)
         {
-            const string insertString = "insert into LocationData (id, longitude, latitude, userId, dateTimeInfo) values (@id, @longitude, @latitude, @userId), @dateTimeInfo";
+            const string insertString = "insert into LocationData (longitude, latitude, userId, dateTimeInfo) values (@longitude, @latitude, @userId, @dateTimeInfo)";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -117,19 +117,19 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // PUT: api/Books/5
+        // PUT: api/Location/5
         [HttpPut("{id}")]
         public int UpdateLocation(int id, [FromBody] Model.Location value)
         {
             const string updateString =
-                "update LocationData set id=@id, longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
+                "update LocationData set longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateString, databaseConnection))
                 {
                     updateCommand.Parameters.AddWithValue("@longitude", value.Longitude);
-                    updateCommand.Parameters.AddWithValue("@latitide", value.Latitude);
+                    updateCommand.Parameters.AddWithValue("@latitude", value.Latitude);
                     updateCommand.Parameters.AddWithValue("@userId", value.UserId);
                     updateCommand.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
                     updateCommand.Parameters.AddWithValue("@id", id);
