@@ -107,7 +107,6 @@ namespace TheBerthaRestConsumer.Controllers
                 databaseConnection.Open();
                 using (SqlCommand insertCommand = new SqlCommand(insertString, databaseConnection))
                 {
-                    insertCommand.Parameters.AddWithValue("@id", value.Id;
                     insertCommand.Parameters.AddWithValue("@longitude", value.Longitude);
                     insertCommand.Parameters.AddWithValue("@latitude", value.Latitude);
                     insertCommand.Parameters.AddWithValue("@userId", value.UserId);
@@ -129,7 +128,6 @@ namespace TheBerthaRestConsumer.Controllers
                 databaseConnection.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateString, databaseConnection))
                 {
-                    updateCommand.Parameters.AddWithValue("@id", value.Id);
                     updateCommand.Parameters.AddWithValue("@longitude", value.Longitude);
                     updateCommand.Parameters.AddWithValue("@latitide", value.Latitude);
                     updateCommand.Parameters.AddWithValue("@userId", value.UserId);
