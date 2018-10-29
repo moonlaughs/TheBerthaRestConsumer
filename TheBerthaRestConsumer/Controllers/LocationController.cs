@@ -21,7 +21,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpGet]
         public IEnumerable<Model.Location> GetLocation()
         {
-            const string selectString = "select * from location order by id";
+            const string selectString = "select * from LocationData order by id";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
