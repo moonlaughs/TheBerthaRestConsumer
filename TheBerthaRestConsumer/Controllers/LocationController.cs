@@ -63,7 +63,7 @@ namespace TheBerthaRestConsumer.Controllers
         [Route("{id}")]
         public Model.Location GetLocationById(int id)
         {
-            const string selectString = "select * from location where id=@id";
+            const string selectString = "select * from LocationData where id=@id";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -84,7 +84,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpDelete("{id}")]
         public int DeleteLocation(int id)
         {
-            const string deleteStatement = "delete from location where id=@id";
+            const string deleteStatement = "delete from LocationData where id=@id";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -101,7 +101,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPost]
         public int AddLocation([FromBody] Model.Location value)
         {
-            const string insertString = "insert into location (id, longitude, latitude, userId, dateTimeInfo) values (@id, @longitude, @latitude, @userId), @dateTimeInfo";
+            const string insertString = "insert into LocationData (id, longitude, latitude, userId, dateTimeInfo) values (@id, @longitude, @latitude, @userId), @dateTimeInfo";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -122,7 +122,7 @@ namespace TheBerthaRestConsumer.Controllers
         public int UpdateLocation(int id, [FromBody] Model.Location value)
         {
             const string updateString =
-                "update location set id=@id, longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
+                "update LocationData set id=@id, longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
