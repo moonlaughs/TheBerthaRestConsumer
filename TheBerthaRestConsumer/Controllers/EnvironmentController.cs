@@ -36,8 +36,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-
-            return null;
         }
 
         private Model.Environment ReadEnvironment(SqlDataReader reader)
@@ -98,7 +96,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-            return null;
         }
 
         // POST: api/Environment

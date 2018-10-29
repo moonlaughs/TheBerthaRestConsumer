@@ -37,7 +37,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-            return null;
         }
 
         private Users ReadUser(SqlDataReader reader)
@@ -91,8 +90,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-
-            return null;
         }
 
         //Get the health data of a specific user
