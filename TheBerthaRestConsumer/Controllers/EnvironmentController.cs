@@ -18,7 +18,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpGet]
         public IEnumerable<Model.Environment> Get()
         {
-            string selectString = "select * from Environment";
+            string selectString = "select * from EnvironmentData";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open(); 
