@@ -53,7 +53,7 @@ namespace TheBerthaRestConsumer.Controllers
             string nitrogenDioxide = reader.IsDBNull(8) ? null : reader.GetString(8);
             string sulphurDioxide = reader.IsDBNull(9) ? null : reader.GetString(9);
             int userId = reader.GetInt32(10);
-            DateTime dateTime = reader.GetDateTime(11);
+            DateTime dateTimeInfo = reader.GetDateTime(11);
 
             Model.Environment env = new Model.Environment()
             {
@@ -68,7 +68,7 @@ namespace TheBerthaRestConsumer.Controllers
                 NitrogenDioxide = nitrogenDioxide,
                 SulphurDioxide = sulphurDioxide,
                 UserId = userId,
-                DateTime = dateTime
+                DateTimeInfo = dateTimeInfo
         };
             return env;
         }
@@ -77,7 +77,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpGet("{id}", Name = "Get")]
         public Model.Environment Get(int id)
         {
-            string selectString = "select * from Environment where id = @id"; //
+            string selectString = "select * from EnvironmentData where id = @id"; //
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -98,30 +98,29 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-            return null;
         }
 
         // POST: api/Environment
         [HttpPost]
         public int Post([FromBody] Model.Environment value)
         {
-            string insertString = "insert into books (title, author, publisher, price) values(@title, @author, @publisher, @price)"; // change with the things from database
+            string insertString = "insert into EnvironmentData (oxygen, co2, co, PM2.5, PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM2.25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 using (SqlCommand command = new SqlCommand(insertString, conn))
                 {
-                    command.Parameters.AddWithValue("@id", value.Id);
                     command.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     command.Parameters.AddWithValue("@co2", value.Co2);
-                    command.Parameters.AddWithValue("@pm25", value.Pm25);
-                    command.Parameters.AddWithValue("@pm10", value.Pm10);
-                    command.Parameters.AddWithValue("@ozone", value.Ozon);
+                    command.Parameters.AddWithValue("@co", value.Co);
+                    command.Parameters.AddWithValue("@PM2.5", value.Pm25);
+                    command.Parameters.AddWithValue("@PM10", value.Pm10);
+                    command.Parameters.AddWithValue("@ozon", value.Ozon);
                     command.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     command.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
-                    command.Parameters.AddWithValue("@sulphirDioxide", value.SulphurDioxide);
+                    command.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
                     command.Parameters.AddWithValue("@userId", value.UserId);
-                    command.Parameters.AddWithValue("@dateTime", value.DateTime);
+                    command.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
@@ -134,23 +133,24 @@ namespace TheBerthaRestConsumer.Controllers
         public int Put(int id, [FromBody] Model.Environment value)
         {
             string updateString =
-                "update books set title =@title, author= @author, publisher= @publisher, price= @price where id=@id"; // here as well
+                "update EnvironmentData set Id =@Id, oxygen =@oxygen, co2=@co2, co =@co pm25 =@pm25, pm10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@sulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id"; 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateString, conn))
                 {
-                    updateCommand.Parameters.AddWithValue("@id", value.Id);
+                    updateCommand.Parameters.AddWithValue("@Id", value.Id);
                     updateCommand.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     updateCommand.Parameters.AddWithValue("@co2", value.Co2);
+                    updateCommand.Parameters.AddWithValue("@co", value.Co);
                     updateCommand.Parameters.AddWithValue("@pm25", value.Pm25);
                     updateCommand.Parameters.AddWithValue("@pm10", value.Pm10);
-                    updateCommand.Parameters.AddWithValue("@ozone", value.Ozon);
+                    updateCommand.Parameters.AddWithValue("@ozon", value.Ozon);
                     updateCommand.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     updateCommand.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
-                    updateCommand.Parameters.AddWithValue("@sulphirDioxide", value.SulphurDioxide);
+                    updateCommand.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
                     updateCommand.Parameters.AddWithValue("@userId", value.UserId);
-                    updateCommand.Parameters.AddWithValue("@dateTime", value.DateTime);
+                    updateCommand.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
 
                     int rowsAffected = updateCommand.ExecuteNonQuery();
                     return rowsAffected;

@@ -19,9 +19,9 @@ namespace TheBerthaRestConsumer.Model
         public string NitrogenDioxide { get; set; }
         public string SulphurDioxide { get; set; }
         public int UserId { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTimeInfo { get; set; }
 
-        public Environment(int id, string oxygen, string co2,string co, string pm25, string pm10, string ozon, string dustParticles, string nitrogenDioxide, string sulphurDioxide, int userId, DateTime dateTime)
+        public Environment(int id, string oxygen, string co2,string co, string pm25, string pm10, string ozon, string dustParticles, string nitrogenDioxide, string sulphurDioxide, int userId, DateTime dateTimeInfo)
         {
             Id = id;
             Oxygen = oxygen;
@@ -32,9 +32,9 @@ namespace TheBerthaRestConsumer.Model
             Ozon = ozon;
             DustParticles = dustParticles;
             NitrogenDioxide = nitrogenDioxide;
-            SulphurDioxide = sulphurDioxide;
+            SulphurDioxide = SulphurDioxide;
             UserId = userId;
-            DateTime = dateTime;
+            DateTimeInfo = dateTimeInfo;
         }
 
         public Environment()
@@ -44,7 +44,7 @@ namespace TheBerthaRestConsumer.Model
 
         public override string ToString()
         {
-            return Id + Oxygen + Co2 + Co + Pm25 + Pm10 + Ozon + DustParticles + NitrogenDioxide + SulphurDioxide + UserId + DateTime;
+            return Id + Oxygen + Co2 + Co + Pm25 + Pm10 + Ozon + DustParticles + NitrogenDioxide + SulphurDioxide + UserId + DateTimeInfo;
         }
     }
 }
