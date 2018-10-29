@@ -104,7 +104,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPost]
         public int Post([FromBody] Model.Environment value)
         {
-            string insertString = "insert into EnvironmentData (oxygen, co2, co, PM2.5, PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM2.25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
+            string insertString = "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -113,7 +113,7 @@ namespace TheBerthaRestConsumer.Controllers
                     command.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     command.Parameters.AddWithValue("@co2", value.Co2);
                     command.Parameters.AddWithValue("@co", value.Co);
-                    command.Parameters.AddWithValue("@PM2.5", value.Pm25);
+                    command.Parameters.AddWithValue("@PM25", value.Pm25);
                     command.Parameters.AddWithValue("@PM10", value.Pm10);
                     command.Parameters.AddWithValue("@ozon", value.Ozon);
                     command.Parameters.AddWithValue("@dustParticles", value.DustParticles);
@@ -133,13 +133,14 @@ namespace TheBerthaRestConsumer.Controllers
         public int Put(int id, [FromBody] Model.Environment value)
         {
             string updateString =
-                "update EnvironmentData set Id =@Id, oxygen =@oxygen, co2=@co2, co =@co pm25 =@pm25, pm10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@sulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id"; 
+                "update EnvironmentData set oxygen =@oxygen, co2=@co2, co =@co, [PM2.5] =@pm25, PM10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@sulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id"; 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateString, conn))
                 {
-                    updateCommand.Parameters.AddWithValue("@Id", value.Id);
+                    //updateCommand.Parameters.AddWithValue("@Id", value.Id);
+                    updateCommand.Parameters.AddWithValue("@id", id);
                     updateCommand.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     updateCommand.Parameters.AddWithValue("@co2", value.Co2);
                     updateCommand.Parameters.AddWithValue("@co", value.Co);
