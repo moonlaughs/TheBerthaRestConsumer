@@ -163,7 +163,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpDelete("{id}")]
         public int Delete(int id)
         {
-            string deleteString = "delete from books where id = @id"; // here change with query
+            string deleteString = "delete from EnvironmentData where id = @id"; 
             using (SqlConnection conn = new SqlConnection(connectionString)) 
             {
                 conn.Open();
