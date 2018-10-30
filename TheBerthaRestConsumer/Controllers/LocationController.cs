@@ -44,8 +44,8 @@ namespace TheBerthaRestConsumer.Controllers
         private Model.Location ReadLocation(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
-            string longitude = reader.IsDBNull(1) ? null : reader.GetString(1);
-            string latitude = reader.IsDBNull(2) ? null : reader.GetString(2);
+            decimal longitude = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
+            decimal latitude = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
             int userId = reader.GetInt32(3);
             DateTime dateTimeInfo = reader.GetDateTime(4);
             Model.Location location = new Model.Location
