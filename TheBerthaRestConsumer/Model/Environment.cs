@@ -33,7 +33,7 @@ namespace TheBerthaRestConsumer.Model
             NitrogenDioxide = nitrogenDioxide;
             SulphurDioxide = sulphurDioxide;
             UserId = userId;
-            DateTimeInfo = DateTimeInfo;
+            DateTimeInfo = dateTimeInfo;
         }
 
         public Environment()

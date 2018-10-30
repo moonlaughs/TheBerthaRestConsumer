@@ -37,7 +37,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-
         }
 
         internal static Health ReadHealth(SqlDataReader reader)
