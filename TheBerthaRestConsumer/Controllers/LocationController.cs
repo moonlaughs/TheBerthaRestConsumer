@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 using TheBerthaRestConsumer.Model;
 
 
-namespace TheBerthaRestConsumer.Controllers 
+namespace TheBerthaRestConsumer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

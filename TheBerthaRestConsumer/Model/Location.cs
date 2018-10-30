@@ -7,7 +7,7 @@ namespace TheBerthaRestConsumer.Model
 {
     public class Location
     {
-        public Location (int id, string longitude, string latitude, int userId, DateTime dateTimeInfo)
+        public Location(int id, string longitude, string latitude, int userId, DateTime dateTimeInfo)
         {
             Id = id;
             Longitude = longitude;
@@ -26,7 +26,7 @@ namespace TheBerthaRestConsumer.Model
         {
 
         }
-            
+
 
         public override string ToString()
         {

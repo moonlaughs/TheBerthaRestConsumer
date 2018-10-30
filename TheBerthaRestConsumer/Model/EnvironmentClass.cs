@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TheBerthaRestConsumer.Model
 {
-    public class Environment
+    public class EnvironmentClass
     {
         public int Id { get; set; }
         public decimal Oxygen { get; set; }
@@ -20,7 +20,7 @@ namespace TheBerthaRestConsumer.Model
         public int UserId { get; set; }
         public DateTime DateTimeInfo { get; set; }
 
-        public Environment(int id, decimal oxygen, decimal co2, decimal co, decimal pM25, decimal pM10, decimal ozon, decimal dustParticles, decimal nitrogenDioxide, decimal sulphurDioxide, int userId, DateTime dateTimeInfo)
+        public EnvironmentClass(int id, decimal oxygen, decimal co2, decimal co, decimal pM25, decimal pM10, decimal ozon, decimal dustParticles, decimal nitrogenDioxide, decimal sulphurDioxide, int userId, DateTime dateTimeInfo)
         {
             Id = id;
             Oxygen = oxygen;
@@ -36,7 +36,7 @@ namespace TheBerthaRestConsumer.Model
             DateTimeInfo = dateTimeInfo;
         }
 
-        public Environment()
+        public EnvironmentClass()
         {
             
         }

@@ -15,9 +15,9 @@ namespace TheBerthaRestConsumer.Controllers
     {
         private string connectionString = ConnectionString.connectionString;
 
-        // GET: api/Environment
+        // GET: api/EnvironmentClass
         [HttpGet]
-        public IEnumerable<Model.Environment> Get()
+        public IEnumerable<EnvironmentClass> Get()
         {
             string selectString = "select * from EnvironmentData;";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -27,10 +27,10 @@ namespace TheBerthaRestConsumer.Controllers
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        List<Model.Environment> result = new List<Model.Environment>();
+                        List<EnvironmentClass> result = new List<EnvironmentClass>();
                         while (reader.Read())
                         {
-                            Model.Environment env = ReadEnvironment(reader);
+                            EnvironmentClass env = ReadEnvironment(reader);
                             result.Add(env);
                         }
                         return result;
@@ -39,7 +39,7 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        internal static Model.Environment ReadEnvironment(SqlDataReader reader)
+        internal static EnvironmentClass ReadEnvironment(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
             decimal oxygen = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
@@ -54,7 +54,7 @@ namespace TheBerthaRestConsumer.Controllers
             int userId = reader.GetInt32(10);
             DateTime dateTimeInfo = reader.GetDateTime(11);
 
-            Model.Environment env = new Model.Environment()
+            EnvironmentClass env = new EnvironmentClass()
             {
                 Id = id,
                 Oxygen = oxygen,
@@ -73,9 +73,9 @@ namespace TheBerthaRestConsumer.Controllers
             return env;
         }
 
-        // GET: api/Environment/5
+        // GET: api/EnvironmentClass/5
         [HttpGet("{id}", Name = "Get")]
-        public Model.Environment Get(int id)
+        public EnvironmentClass Get(int id)
         {
             string selectString = "select * from EnvironmentData where id = @id";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -100,9 +100,9 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // POST: api/Environment
+        // POST: api/EnvironmentClass
         [HttpPost]
-        public int Post([FromBody] Model.Environment value)
+        public int Post([FromBody] EnvironmentClass value)
         {
             string insertString =
                 "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
@@ -129,9 +129,9 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // PUT: api/Environment/5
+        // PUT: api/EnvironmentClass/5
         [HttpPut("{id}")]
-        public int Put(int id, [FromBody] Model.Environment value)
+        public int Put(int id, [FromBody] EnvironmentClass value)
         {
             const string updateString =
                 "update EnvironmentData set oxygen =@oxygen, co2 =@co2, co =@co, [PM2.5] =@PM25, PM10 =@PM10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@SulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id;";
