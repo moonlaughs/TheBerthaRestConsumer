@@ -36,22 +36,20 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-
-            return null;
         }
 
         private Model.Environment ReadEnvironment(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
-            string oxygen = reader.IsDBNull(1) ? null : reader.GetString(1); ;
-            string co2 = reader.IsDBNull(2) ? null : reader.GetString(2);
-            string co = reader.IsDBNull(3) ? null : reader.GetString(3);
-            string pm25 = reader.IsDBNull(4) ? null : reader.GetString(4);
-            string pm10 = reader.IsDBNull(5) ? null : reader.GetString(5);
-            string ozon = reader.IsDBNull(6) ? null : reader.GetString(6);
-            string dustParticles = reader.IsDBNull(7) ? null : reader.GetString(7);
-            string nitrogenDioxide = reader.IsDBNull(8) ? null : reader.GetString(8);
-            string sulphurDioxide = reader.IsDBNull(9) ? null : reader.GetString(9);
+            decimal oxygen = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1); ;
+            decimal co2 = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
+            decimal co = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+            decimal pm25 = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+            decimal pm10 = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+            decimal ozon = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+            decimal dustParticles = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+            decimal nitrogenDioxide = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8);
+            decimal sulphurDioxide = reader.IsDBNull(9) ? 0 : reader.GetDecimal(9);
             int userId = reader.GetInt32(10);
             DateTime dateTimeInfo = reader.GetDateTime(11);
 
