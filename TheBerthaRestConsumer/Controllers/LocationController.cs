@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 using TheBerthaRestConsumer.Model;
 
 
-namespace TheBerthaRestConsumer.Controllers 
+namespace TheBerthaRestConsumer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -44,8 +44,8 @@ namespace TheBerthaRestConsumer.Controllers
         private Model.Location ReadLocation(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
-            string longitude = reader.IsDBNull(1) ? null : reader.GetString(1);
-            string latitude = reader.IsDBNull(2) ? null : reader.GetString(2);
+            decimal longitude = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
+            decimal latitude = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
             int userId = reader.GetInt32(3);
             DateTime dateTimeInfo = reader.GetDateTime(4);
             Model.Location location = new Model.Location
@@ -63,7 +63,7 @@ namespace TheBerthaRestConsumer.Controllers
         [Route("{id}")]
         public Model.Location GetLocationById(int id)
         {
-            const string selectString = "select * from location where id=@id";
+            const string selectString = "select * from LocationData where id=@id";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -84,7 +84,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpDelete("{id}")]
         public int DeleteLocation(int id)
         {
-            const string deleteStatement = "delete from location where id=@id";
+            const string deleteStatement = "delete from LocationData where id=@id";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -97,11 +97,11 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // POST: api/Books
+        // POST: api/Location
         [HttpPost]
         public int AddLocation([FromBody] Model.Location value)
         {
-            const string insertString = "insert into location (id, longitude, latitude, userId, dateTimeInfo) values (@id, @longitude, @latitude, @userId), @dateTimeInfo";
+            const string insertString = "insert into LocationData (longitude, latitude, userId, dateTimeInfo) values (@longitude, @latitude, @userId, @dateTimeInfo)";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -117,19 +117,19 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        // PUT: api/Books/5
+        // PUT: api/Location/5
         [HttpPut("{id}")]
         public int UpdateLocation(int id, [FromBody] Model.Location value)
         {
             const string updateString =
-                "update location set id=@id, longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
+                "update LocationData set longitude=@longitude, latitude=@latitude, userId=@userId, dateTimeInfo=@dateTimeInfo where id=@id;";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
                 using (SqlCommand updateCommand = new SqlCommand(updateString, databaseConnection))
                 {
                     updateCommand.Parameters.AddWithValue("@longitude", value.Longitude);
-                    updateCommand.Parameters.AddWithValue("@latitide", value.Latitude);
+                    updateCommand.Parameters.AddWithValue("@latitude", value.Latitude);
                     updateCommand.Parameters.AddWithValue("@userId", value.UserId);
                     updateCommand.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
                     updateCommand.Parameters.AddWithValue("@id", id);

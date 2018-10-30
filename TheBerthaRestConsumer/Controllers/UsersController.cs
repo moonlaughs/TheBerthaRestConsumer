@@ -14,7 +14,7 @@ namespace TheBerthaRestConsumer.Controllers
     public class UsersController : ControllerBase
     {
         private string connectionString = ConnectionString.connectionString;
-        
+
         // GET: api/Users
         [HttpGet]
         public IEnumerable<Users> Get()
