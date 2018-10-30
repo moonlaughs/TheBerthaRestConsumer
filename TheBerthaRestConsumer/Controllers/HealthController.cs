@@ -63,7 +63,8 @@ namespace TheBerthaRestConsumer.Controllers
         }
 
         // GET: api/Health/5
-        [HttpGet("{id}", Name = "Get")]
+        //[HttpGet("{id}", Name = "Get")]
+        [Route("{id}")]
         public Health Get(int id)
         {
             string selectString = "select * from HealthData where id = @id";

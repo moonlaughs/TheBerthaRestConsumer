@@ -74,7 +74,8 @@ namespace TheBerthaRestConsumer.Controllers
         }
 
         // GET: api/EnvironmentClass/5
-        [HttpGet("{id}", Name = "Get")]
+        //[HttpGet("{id}", Name = "Get")]
+        [Route("{id}")]
         public EnvironmentClass Get(int id)
         {
             string selectString = "select * from EnvironmentData where id = @id";
