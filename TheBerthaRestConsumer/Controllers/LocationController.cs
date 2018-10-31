@@ -41,7 +41,7 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-        private Model.Location ReadLocation(SqlDataReader reader)
+        internal static Model.Location ReadLocation(SqlDataReader reader)
         {
             int id = reader.GetInt32(0);
             decimal longitude = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
