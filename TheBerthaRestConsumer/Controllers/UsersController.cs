@@ -14,7 +14,7 @@ namespace TheBerthaRestConsumer.Controllers
     public class UsersController : ControllerBase
     {
         private string connectionString = ConnectionString.connectionString;
-        
+
         // GET: api/Users
         [HttpGet]
         public IEnumerable<Users> Get()
@@ -37,7 +37,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-            return null;
         }
 
         private Users ReadUser(SqlDataReader reader)
@@ -91,8 +90,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-
-            return null;
         }
 
         //Get the health data of a specific user
