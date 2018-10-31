@@ -60,8 +60,8 @@ namespace TheBerthaRestConsumer.Controllers
                 Oxygen = oxygen,
                 Co2 = co2,
                 Co = co,
-                PM25 = pm25,
-                PM10 = pm10,
+                Pm25 = pm25,
+                Pm10 = pm10,
                 Ozon = ozon,
                 DustParticles = dustParticles,
                 NitrogenDioxide = nitrogenDioxide,
@@ -115,8 +115,8 @@ namespace TheBerthaRestConsumer.Controllers
                     command.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     command.Parameters.AddWithValue("@co2", value.Co2);
                     command.Parameters.AddWithValue("@co", value.Co);
-                    command.Parameters.AddWithValue("@PM25", value.PM25);
-                    command.Parameters.AddWithValue("@PM10", value.PM10);
+                    command.Parameters.AddWithValue("@PM25", value.Pm25);
+                    command.Parameters.AddWithValue("@PM10", value.Pm10);
                     command.Parameters.AddWithValue("@ozon", value.Ozon);
                     command.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     command.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
@@ -135,7 +135,7 @@ namespace TheBerthaRestConsumer.Controllers
         public int Put(int id, [FromBody] EnvironmentClass value)
         {
             const string updateString =
-                "update EnvironmentData set oxygen =@oxygen, co2 =@co2, co =@co, [PM2.5] =@PM25, PM10 =@PM10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@SulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id;";
+                "update EnvironmentData set oxygen =@oxygen, co2 =@co2, co =@co, [PM2.5] =@pm25, PM10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@SulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id;";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -145,8 +145,8 @@ namespace TheBerthaRestConsumer.Controllers
                     updateCommand.Parameters.AddWithValue("@oxygen", value.Oxygen);
                     updateCommand.Parameters.AddWithValue("@co2", value.Co2);
                     updateCommand.Parameters.AddWithValue("@co", value.Co);
-                    updateCommand.Parameters.AddWithValue("@PM25", value.PM25);
-                    updateCommand.Parameters.AddWithValue("@PM10", value.PM10);
+                    updateCommand.Parameters.AddWithValue("@pm25", value.Pm25);
+                    updateCommand.Parameters.AddWithValue("@pm10", value.Pm10);
                     updateCommand.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     updateCommand.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
                     updateCommand.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
