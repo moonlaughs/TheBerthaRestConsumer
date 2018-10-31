@@ -117,8 +117,61 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
+
+        // Get environment data of a specific user
+        [Route("{userId}/environment")]
+
+        public IEnumerable<EnvironmentClass> GetEnvByUserId(int userId)
+        {
+            const string selectString = "select * from EnvironmentData where userid =@userid";
+            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
+            {
+                databaseConnection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectString, databaseConnection))
+                {
+                    selectCommand.Parameters.AddWithValue("@userid", userId);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        List<EnvironmentClass> envList = new List<EnvironmentClass>();
+                        while (reader.Read())
+                        {
+                            EnvironmentClass env = EnvironmentController.ReadEnvironment(reader);
+                            envList.Add(env);
+                        }
+                        return envList;
+                    }
+                }
+            }
+        }
+
+        // Get location data for a specific user
+        [Route("{userId}/location")]
+
+        public IEnumerable<Location> GetLocByUserId(int userId)
+        {
+            const string selectString = "select * from LocationData where userid =@userid";
+            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
+            {
+                databaseConnection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectString, databaseConnection))
+                {
+                    selectCommand.Parameters.AddWithValue("@userid", userId);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        List<Location> locList = new List<Location>();
+                        while (reader.Read())
+                        {
+                            Location loc = LocationController.ReadLocation(reader);
+                            locList.Add(loc);
+                        }
+                        return locList;
+                    }
+                }
+            }
+        }
+
         // POST: api/Users
-        [HttpPost]
+            [HttpPost]
         public int Post([FromBody] Users value)
         {
             string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";
