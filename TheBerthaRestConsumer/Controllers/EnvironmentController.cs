@@ -106,7 +106,7 @@ namespace TheBerthaRestConsumer.Controllers
         public int Post([FromBody] EnvironmentClass value)
         {
             string insertString =
-                "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
+                "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -147,6 +147,7 @@ namespace TheBerthaRestConsumer.Controllers
                     updateCommand.Parameters.AddWithValue("@co", value.Co);
                     updateCommand.Parameters.AddWithValue("@pm25", value.Pm25);
                     updateCommand.Parameters.AddWithValue("@pm10", value.Pm10);
+                    updateCommand.Parameters.AddWithValue("@ozon", value.Ozon);
                     updateCommand.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     updateCommand.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
                     updateCommand.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
