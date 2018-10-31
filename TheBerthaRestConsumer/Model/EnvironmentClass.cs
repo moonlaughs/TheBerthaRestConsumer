@@ -11,8 +11,8 @@ namespace TheBerthaRestConsumer.Model
         public decimal Oxygen { get; set; }
         public decimal Co2 { get; set; }
         public decimal Co { get; set; }
-        public decimal PM25 { get; set; }
-        public decimal PM10 { get; set; }
+        public decimal Pm25 { get; set; }
+        public decimal Pm10 { get; set; }
         public decimal Ozon { get; set; }
         public decimal DustParticles { get; set; }
         public decimal NitrogenDioxide { get; set; }
@@ -26,8 +26,8 @@ namespace TheBerthaRestConsumer.Model
             Oxygen = oxygen;
             Co2 = co2;
             Co = co;
-            PM25 = pM25;
-            PM10 = pM10;
+            Pm25 = pM25;
+            Pm10 = pM10;
             Ozon = ozon;
             DustParticles = dustParticles;
             NitrogenDioxide = nitrogenDioxide;
@@ -43,7 +43,7 @@ namespace TheBerthaRestConsumer.Model
 
         public override string ToString()
         {
-            return Id + " " + Oxygen + " " + Co2 + " " + Co + " " + PM25 + " " + PM10 + " " + Ozon + " " +
+            return Id + " " + Oxygen + " " + Co2 + " " + Co + " " + Pm25 + " " + Pm10 + " " + Ozon + " " +
                    DustParticles + " " + NitrogenDioxide + " " + SulphurDioxide + " " + UserId + " " + DateTimeInfo;
         }
     }
