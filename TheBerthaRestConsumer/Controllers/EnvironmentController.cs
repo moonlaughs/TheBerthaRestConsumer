@@ -51,8 +51,10 @@ namespace TheBerthaRestConsumer.Controllers
             decimal dustParticles = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
             decimal nitrogenDioxide = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8);
             decimal sulphurDioxide = reader.IsDBNull(9) ? 0 : reader.GetDecimal(9);
-            int userId = reader.GetInt32(10);
-            DateTime dateTimeInfo = reader.GetDateTime(11);
+            decimal longitude = reader.GetDecimal(10);
+            decimal latitude = reader.GetDecimal(11);
+            int userId = reader.GetInt32(12);
+            DateTime dateTimeInfo = reader.GetDateTime(13);
 
             EnvironmentClass env = new EnvironmentClass()
             {
@@ -66,6 +68,8 @@ namespace TheBerthaRestConsumer.Controllers
                 DustParticles = dustParticles,
                 NitrogenDioxide = nitrogenDioxide,
                 SulphurDioxide = sulphurDioxide,
+                Longitude = longitude,
+                Latitude = latitude,
                 UserId = userId,
                 DateTimeInfo = dateTimeInfo
             };
@@ -106,7 +110,7 @@ namespace TheBerthaRestConsumer.Controllers
         public int Post([FromBody] EnvironmentClass value)
         {
             string insertString =
-                "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @userId, @dateTimeInfo)";
+                "insert into EnvironmentData (oxygen, co2, co, [PM2.5], PM10, ozon, dustParticles, nitrogenDioxide, sulphurDioxide, longitude, latitude, userId, dateTimeInfo) values(@oxygen, @co2, @co, @PM25, @PM10, @ozon, @dustParticles, @nitrogenDioxide, @sulphurDioxide, @longitude, @latitude, @userId, @dateTimeInfo)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -121,6 +125,8 @@ namespace TheBerthaRestConsumer.Controllers
                     command.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     command.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
                     command.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
+                    command.Parameters.AddWithValue("@longitude", value.Longitude);
+                    command.Parameters.AddWithValue("@latitude", value.Latitude);
                     command.Parameters.AddWithValue("@userId", value.UserId);
                     command.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
 
@@ -135,7 +141,7 @@ namespace TheBerthaRestConsumer.Controllers
         public int Put(int id, [FromBody] EnvironmentClass value)
         {
             const string updateString =
-                "update EnvironmentData set oxygen =@oxygen, co2 =@co2, co =@co, [PM2.5] =@pm25, PM10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@SulphurDioxide, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id;";
+                "update EnvironmentData set oxygen =@oxygen, co2 =@co2, co =@co, [PM2.5] =@pm25, PM10 =@pm10, ozon =@ozon, dustParticles =@dustParticles, nitrogenDioxide =@nitrogenDioxide, sulphurDioxide =@SulphurDioxide, longitude=@longitude, latitude=@latitude, userId =@userId, dateTimeInfo =@dateTimeInfo where id=@id;";
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
@@ -151,6 +157,8 @@ namespace TheBerthaRestConsumer.Controllers
                     updateCommand.Parameters.AddWithValue("@dustParticles", value.DustParticles);
                     updateCommand.Parameters.AddWithValue("@nitrogenDioxide", value.NitrogenDioxide);
                     updateCommand.Parameters.AddWithValue("@sulphurDioxide", value.SulphurDioxide);
+                    updateCommand.Parameters.AddWithValue("@longitude", value.Longitude);
+                    updateCommand.Parameters.AddWithValue("@latitude", value.Latitude);
                     updateCommand.Parameters.AddWithValue("@userId", value.UserId);
                     updateCommand.Parameters.AddWithValue("@dateTimeInfo", value.DateTimeInfo);
 
