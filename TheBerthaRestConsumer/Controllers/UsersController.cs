@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TheBerthaRestConsumer.Model;
 
 namespace TheBerthaRestConsumer.Controllers
 {
@@ -13,7 +14,7 @@ namespace TheBerthaRestConsumer.Controllers
     public class UsersController : ControllerBase
     {
         private string connectionString = ConnectionString.connectionString;
-        
+
         // GET: api/Users
         [HttpGet]
         public IEnumerable<Users> Get()
@@ -36,7 +37,6 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-            return null;
         }
 
         private Users ReadUser(SqlDataReader reader)
@@ -90,8 +90,31 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
+        }
 
-            return null;
+        //Get the health data of a specific user
+        [Route("{userId}/health")]
+        public IEnumerable<Health> GetScoresByUserId(int userId)
+        {
+            const string selectString = "select * from HealthData where userid=@userid";
+            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
+            {
+                databaseConnection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectString, databaseConnection))
+                {
+                    selectCommand.Parameters.AddWithValue("@userid", userId);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        List<Health> healthList = new List<Health>();
+                        while (reader.Read())
+                        {
+                            Health health = HealthController.ReadHealth(reader);
+                            healthList.Add(health);
+                        }
+                        return healthList;
+                    }
+                }
+            }
         }
 
         // POST: api/Users
