@@ -143,7 +143,7 @@ namespace TheBerthaRestConsumer.Controllers
                 }
             }
         }
-
+        
         // Get location data for a specific user
         //[Route("{userId}/location")]
 
@@ -169,7 +169,7 @@ namespace TheBerthaRestConsumer.Controllers
         //        }
         //    }
         //}
-
+        
         // POST: api/Users
             [HttpPost]
         public int Post([FromBody] Users value)

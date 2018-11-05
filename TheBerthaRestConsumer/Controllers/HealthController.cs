@@ -32,7 +32,7 @@ namespace TheBerthaRestConsumer.Controllers
                         {
                             Health health = ReadHealth(reader);
                             result.Add(health);
-                        }
+                        }   
                         return result;
                     }
                 }
