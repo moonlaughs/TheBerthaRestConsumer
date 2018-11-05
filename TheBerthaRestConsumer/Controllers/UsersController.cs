@@ -145,30 +145,30 @@ namespace TheBerthaRestConsumer.Controllers
         }
 
         // Get location data for a specific user
-        [Route("{userId}/location")]
+        //[Route("{userId}/location")]
 
-        public IEnumerable<Location> GetLocByUserId(int userId)
-        {
-            const string selectString = "select * from LocationData where userid =@userid";
-            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
-            {
-                databaseConnection.Open();
-                using (SqlCommand selectCommand = new SqlCommand(selectString, databaseConnection))
-                {
-                    selectCommand.Parameters.AddWithValue("@userid", userId);
-                    using (SqlDataReader reader = selectCommand.ExecuteReader())
-                    {
-                        List<Location> locList = new List<Location>();
-                        while (reader.Read())
-                        {
-                            Location loc = LocationController.ReadLocation(reader);
-                            locList.Add(loc);
-                        }
-                        return locList;
-                    }
-                }
-            }
-        }
+        //public IEnumerable<Location> GetLocByUserId(int userId)
+        //{
+        //    const string selectString = "select * from LocationData where userid =@userid";
+        //    using (SqlConnection databaseConnection = new SqlConnection(connectionString))
+        //    {
+        //        databaseConnection.Open();
+        //        using (SqlCommand selectCommand = new SqlCommand(selectString, databaseConnection))
+        //        {
+        //            selectCommand.Parameters.AddWithValue("@userid", userId);
+        //            using (SqlDataReader reader = selectCommand.ExecuteReader())
+        //            {
+        //                List<Location> locList = new List<Location>();
+        //                while (reader.Read())
+        //                {
+        //                    Location loc = LocationController.ReadLocation(reader);
+        //                    locList.Add(loc);
+        //                }
+        //                return locList;
+        //            }
+        //        }
+        //    }
+        //}
 
         // POST: api/Users
             [HttpPost]
