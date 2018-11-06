@@ -28,16 +28,55 @@ namespace TheBerthaTestProject
         }
 
         [TestMethod]
-        public void TestDeleteUsers()
+        public void TestPostUsers()
         {
-            int listCount = _controller.Delete(78);
-            Assert.AreEqual(0, listCount);
+            Users newUsers = new Users
+            {
+                FirstName ="Milena",
+                LastName = "Ognianova",
+                UserName = "mimi",
+                Pass = "pass",
+                Age = 20,
+                Gender = "F",
+                TypeOfUser ="S"
+            };
+            int usersCount = _controller.Post(newUsers);
+            Assert.AreEqual(1, usersCount);
 
-            int howMany = _controller.Delete(1);
-            Assert.AreEqual(1, howMany);
-
-            //IEnumerable<Users> usersList = _controller.Get();
-            //Assert.AreEqual(2, usersList.Count());
+            IEnumerable<Users> usersList = _controller.Get();
+            Assert.AreEqual(4, usersList.Count()); // Passed
         }
+
+        [TestMethod]
+        public void TestPutUsers()
+        { 
+            Users newUsers = new Users()
+            {
+                FirstName = "Izabela",
+                LastName = "k",
+                UserName = "ooo",
+                Pass = "ooo",
+                Age = 20,
+                Gender = "F",
+                TypeOfUser = "U"
+            };
+            int usersCount = _controller.Put(1, newUsers);
+            Assert.AreEqual("Izabela", newUsers.FirstName); // Passed
+        }
+
+        //[TestMethod]
+        //public void TestDeleteUsers()
+        //{
+        //    int listCount = _controller.Delete(78);
+        //    Assert.AreEqual(0, listCount);
+
+        //    int howMany = _controller.Delete(1);
+        //    Assert.AreEqual(1, howMany);
+
+        //    //IEnumerable<Users> usersList = _controller.Get();
+        //    //Assert.AreEqual(2, usersList.Count());
+        //}
+
+
     }
 }
