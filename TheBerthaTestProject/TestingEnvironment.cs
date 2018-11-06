@@ -77,5 +77,18 @@ namespace TheBerthaTestProject
             int EnvCount = _controller.Put(7, newEnv);
             Assert.AreEqual(18, newEnv.Oxygen); // Passed
         }
+
+        [TestMethod]
+        public void TestDeleteEnvrironment()
+        {
+            int listCount = _controller.Delete(1);
+            Assert.AreEqual(0, listCount);
+
+            listCount = _controller.Delete(7);
+            Assert.AreEqual(0, listCount);
+
+            IEnumerable<EnvironmentClass> EnvList = _controller.Get();
+            Assert.AreEqual(6, EnvList.Count()); // Passed, but check again to be sure 
+        }
     }
 }
