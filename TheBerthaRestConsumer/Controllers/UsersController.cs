@@ -211,5 +211,25 @@ namespace TheBerthaRestConsumer.Controllers
                 }
             }
         }
+
+        [Route("login/{username}/{pass}")]
+        public bool Login(string username, string pass)
+        {
+            bool loginStatus = false;
+            var collection = Get();
+            if (collection != null)
+            {
+                foreach(var user in collection)
+                {
+                    if ((user.UserName == username) && (user.Pass == pass))
+                    {
+                        loginStatus = true;
+                        return true;
+
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
