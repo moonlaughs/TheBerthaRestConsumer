@@ -46,7 +46,7 @@ namespace TheBerthaRestConsumer.Controllers
             string lastName = reader.GetString(2);
             string userName = reader.GetString(3);
             string pass = reader.GetString(4);
-            int age = reader.IsDBNull(5) ? 0 : reader.GetInt32(5);
+            int age =reader.IsDBNull(5) ? 0: reader.GetInt32(5);
             string gender = reader.GetString(6);
             string typeOfUser = reader.GetString(7);
 
@@ -210,6 +210,27 @@ namespace TheBerthaRestConsumer.Controllers
                     return rowAffected;
                 }
             }
+        }
+
+        [Route("login/{username}/{pass}")]
+        public Users Login(string username, string pass)
+        {
+            bool loginStatus = false;
+            var collection = Get();
+            if (collection != null)
+            {
+                foreach(var user in collection)
+                {
+                    if ((user.UserName == username) && (user.Pass == pass))
+                    {
+                        loginStatus = true;
+                        return user;
+
+                    }
+                }
+            }
+            loginStatus = false;
+            return null;
         }
     }
 }
