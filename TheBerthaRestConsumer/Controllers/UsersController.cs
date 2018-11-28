@@ -117,7 +117,6 @@ namespace TheBerthaRestConsumer.Controllers
             }
         }
 
-
         // Get environment data of a specific user
         [Route("{userId}/environment")]
 
@@ -142,30 +141,60 @@ namespace TheBerthaRestConsumer.Controllers
                     }
                 }
             }
-        }
-        
-
-        
+        }      
+                
         // POST: api/Users
-            [HttpPost]
-        public int Post([FromBody] Users value)
+        [HttpPost]
+        public bool Post([FromBody] Users value)
         {
-            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";
+            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";            
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 using (SqlCommand command = new SqlCommand(inseartString, conn))
                 {
-                    command.Parameters.AddWithValue("@firstName", value.FirstName);
-                    command.Parameters.AddWithValue("@lastName", value.LastName);
-                    command.Parameters.AddWithValue("@userName", value.UserName);
-                    command.Parameters.AddWithValue("@pass", value.Pass);
-                    command.Parameters.AddWithValue("@age", value.Age);
-                    command.Parameters.AddWithValue("@gender", value.Gender);
-                    command.Parameters.AddWithValue("@typeOfUser", value.TypeOfUser);
-                    int rowAffected = command.ExecuteNonQuery();
-                    return rowAffected;
+                    bool item = CheckUsernames(value.UserName);
+                    if (item == true)
+                    {
+                        command.Parameters.AddWithValue("@firstName", value.FirstName);
+                        command.Parameters.AddWithValue("@lastName", value.LastName);
+                        command.Parameters.AddWithValue("@userName", value.UserName);
+                        command.Parameters.AddWithValue("@pass", value.Pass);
+                        command.Parameters.AddWithValue("@age", value.Age);
+                        command.Parameters.AddWithValue("@gender", value.Gender);
+                        command.Parameters.AddWithValue("@typeOfUser", value.TypeOfUser);
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+            }
+        }
+
+        //this method checks if the username already exists
+        public bool CheckUsernames(string username)
+        {
+            string usernameValidation = "SELECT * from Users WHERE UserName = @userNameValid;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(usernameValidation, conn))
+                {
+                    command.Parameters.AddWithValue("@userNameValid", username);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -215,7 +244,6 @@ namespace TheBerthaRestConsumer.Controllers
         [Route("login/{username}/{pass}")]
         public Users Login(string username, string pass)
         {
-            bool loginStatus = false;
             var collection = Get();
             if (collection != null)
             {
@@ -223,13 +251,11 @@ namespace TheBerthaRestConsumer.Controllers
                 {
                     if ((user.UserName == username) && (user.Pass == pass))
                     {
-                        loginStatus = true;
                         return user;
 
                     }
                 }
             }
-            loginStatus = false;
             return null;
         }
     }
