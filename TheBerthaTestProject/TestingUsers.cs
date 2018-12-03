@@ -64,19 +64,11 @@ namespace TheBerthaTestProject
             Assert.AreEqual("Izabela", newUsers.FirstName); // Passed
         }
 
-        //[TestMethod]
-        //public void TestDeleteUsers()
-        //{
-        //    int listCount = _controller.Delete(78);
-        //    Assert.AreEqual(0, listCount);
-
-        //    int howMany = _controller.Delete(1);
-        //    Assert.AreEqual(1, howMany);
-
-        //    //IEnumerable<Users> usersList = _controller.Get();
-        //    //Assert.AreEqual(2, usersList.Count());
-        //}
-
-
+        [TestMethod]
+        public void TestDeleteUsers()
+        {
+            int listCount = _controller.Delete(78);
+            Assert.AreEqual(0, listCount); // Passed
+        }
     }
 }
