@@ -7,26 +7,26 @@ namespace TheBerthaRestConsumer
 {
     public class Users
     {
-        public Users(int id, string firstName, string lastName, string userName, string pass, int age, string gender, string typeOfUser)
+        public Users(int id2, string firstName2, string lastName2, string userName2, string pass2, int age2, string gender2, string typeOfUser2)
         {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            UserName = userName;
-            Pass = pass;
-            Age = age;
-            Gender = gender;
-            TypeOfUser = typeOfUser;
+            id = id2;
+            firstName = firstName2;
+            lastName = lastName2;
+            userName = userName2;
+            pass = pass2;
+            age = age2;
+            gender = gender2;
+            typeOfUser = typeOfUser2;
         }
 
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UserName { get; set; }
-        public string Pass { get; set; }
-        public int Age { get; set; }
-        public string Gender { get; set; }
-        public string TypeOfUser { get; set; }
+        public int id { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string userName { get; set; }
+        public string pass { get; set; }
+        public int age { get; set; }
+        public string gender { get; set; }
+        public string typeOfUser { get; set; }
 
         public Users()
         {
@@ -35,7 +35,7 @@ namespace TheBerthaRestConsumer
 
         public override string ToString()
         {
-            return Id + FirstName + LastName + TypeOfUser;
+            return id + firstName + lastName + typeOfUser;
         }
     }
 }

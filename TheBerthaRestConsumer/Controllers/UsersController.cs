@@ -41,25 +41,25 @@ namespace TheBerthaRestConsumer.Controllers
 
         private Users ReadUser(SqlDataReader reader)
         {
-            int id = reader.GetInt32(0);
-            string firstName = reader.GetString(1);
-            string lastName = reader.GetString(2);
-            string userName = reader.GetString(3);
-            string pass = reader.GetString(4);
-            int age =reader.IsDBNull(5) ? 0: reader.GetInt32(5);
-            string gender = reader.GetString(6);
-            string typeOfUser = reader.GetString(7);
+            int myid = reader.GetInt32(0);
+            string myfirstName = reader.GetString(1);
+            string mylastName = reader.GetString(2);
+            string myuserName = reader.GetString(3);
+            string mypass = reader.GetString(4);
+            int myage = reader.IsDBNull(5) ? 0: reader.GetInt32(5);
+            string mygender = reader.GetString(6);
+            string mytypeOfUser = reader.GetString(7);
 
             Users user = new Users()
             {
-                Id = id,
-                FirstName = firstName,
-                LastName = lastName,
-                UserName = userName,
-                Pass = pass,
-                Age = age,
-                Gender = gender,
-                TypeOfUser = typeOfUser
+                id = myid,
+                firstName = myfirstName,
+                lastName = mylastName,
+                userName = myuserName,
+                pass = mypass,
+                age = myage,
+                gender = mygender,
+                typeOfUser = mytypeOfUser
             };
 
             return user;
@@ -147,42 +147,46 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPost]
         public bool Post([FromBody] Users value)
         {
-            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";            
+            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            bool item = CheckUsernameValidation(value.userName);
+
+            if (item == true)
             {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand(inseartString, conn))
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    bool item = CheckUsernames(value.UserName);
-                    if (item == true)
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(inseartString, conn))
                     {
-                        command.Parameters.AddWithValue("@firstName", value.FirstName);
-                        command.Parameters.AddWithValue("@lastName", value.LastName);
-                        command.Parameters.AddWithValue("@userName", value.UserName);
-                        command.Parameters.AddWithValue("@pass", value.Pass);
-                        command.Parameters.AddWithValue("@age", value.Age);
-                        command.Parameters.AddWithValue("@gender", value.Gender);
-                        command.Parameters.AddWithValue("@typeOfUser", value.TypeOfUser);
+                        command.Parameters.AddWithValue("@firstName", value.firstName);
+                        command.Parameters.AddWithValue("@lastName", value.lastName);
+                        command.Parameters.AddWithValue("@userName", value.userName);
+                        command.Parameters.AddWithValue("@pass", value.pass);
+                        command.Parameters.AddWithValue("@age", value.age);
+                        command.Parameters.AddWithValue("@gender", value.gender);
+                        command.Parameters.AddWithValue("@typeOfUser", value.typeOfUser);
+
+                        int rowsAffected = command.ExecuteNonQuery();
                         return true;
                     }
-                    else
-                        return false;
                 }
             }
+            else
+                return false;
         }
 
-        //this method checks if the username already exists
-        public bool CheckUsernames(string username)
+        //[Route("{usernameValidation}")]
+        public bool CheckUsernameValidation(string usernameValidation)
         {
-            string usernameValidation = "SELECT * from Users WHERE UserName = @userNameValid;";
+            string usernameValidationString = "SELECT * from Users WHERE userName = @userNameValid;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (SqlCommand command = new SqlCommand(usernameValidation, conn))
+                using (SqlCommand command = new SqlCommand(usernameValidationString, conn))
                 {
-                    command.Parameters.AddWithValue("@userNameValid", username);
+                    command.Parameters.AddWithValue("@userNameValid", usernameValidation);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -210,13 +214,13 @@ namespace TheBerthaRestConsumer.Controllers
                 using (SqlCommand command = new SqlCommand(updateString, conn))
                 {
                     command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@firstName", value.FirstName);
-                    command.Parameters.AddWithValue("@lastName", value.LastName);
-                    command.Parameters.AddWithValue("@userName", value.UserName);
-                    command.Parameters.AddWithValue("@pass", value.Pass);
-                    command.Parameters.AddWithValue("@age", value.Age);
-                    command.Parameters.AddWithValue("@gender", value.Gender);
-                    command.Parameters.AddWithValue("@typeOfUser", value.TypeOfUser);
+                    command.Parameters.AddWithValue("@firstName", value.firstName);
+                    command.Parameters.AddWithValue("@lastName", value.lastName);
+                    command.Parameters.AddWithValue("@userName", value.userName);
+                    command.Parameters.AddWithValue("@pass", value.pass);
+                    command.Parameters.AddWithValue("@age", value.age);
+                    command.Parameters.AddWithValue("@gender", value.gender);
+                    command.Parameters.AddWithValue("@typeOfUser", value.typeOfUser);
                     int rowAffected = command.ExecuteNonQuery();
                     return rowAffected;
                 }
@@ -249,7 +253,7 @@ namespace TheBerthaRestConsumer.Controllers
             {
                 foreach(var user in collection)
                 {
-                    if ((user.UserName == username) && (user.Pass == pass))
+                    if ((user.userName == username) && (user.pass == pass))
                     {
                         return user;
 
@@ -258,5 +262,6 @@ namespace TheBerthaRestConsumer.Controllers
             }
             return null;
         }
+
     }
 }
