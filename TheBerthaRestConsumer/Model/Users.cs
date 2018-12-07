@@ -7,14 +7,14 @@ namespace TheBerthaRestConsumer
 {
     public class Users
     {
-        public Users(int id2, string firstName2, string lastName2, string userName2, string pass2, int age2, string gender2, string typeOfUser2)
+        public Users(int id2, string firstName2, string lastName2, string userName2, string pass2, int year2, string gender2, string typeOfUser2)
         {
             id = id2;
             firstName = firstName2;
             lastName = lastName2;
             userName = userName2;
             pass = pass2;
-            age = age2;
+            year = year2;
             gender = gender2;
             typeOfUser = typeOfUser2;
         }
@@ -24,7 +24,7 @@ namespace TheBerthaRestConsumer
         public string lastName { get; set; }
         public string userName { get; set; }
         public string pass { get; set; }
-        public int age { get; set; }
+        public int year { get; set; }
         public string gender { get; set; }
         public string typeOfUser { get; set; }
 

@@ -46,7 +46,7 @@ namespace TheBerthaRestConsumer.Controllers
             string mylastName = reader.GetString(2);
             string myuserName = reader.GetString(3);
             string mypass = reader.GetString(4);
-            int myage = reader.IsDBNull(5) ? 0: reader.GetInt32(5);
+            int myyear = reader.IsDBNull(5) ? 0: reader.GetInt32(5);
             string mygender = reader.GetString(6);
             string mytypeOfUser = reader.GetString(7);
 
@@ -57,7 +57,7 @@ namespace TheBerthaRestConsumer.Controllers
                 lastName = mylastName,
                 userName = myuserName,
                 pass = mypass,
-                age = myage,
+                year = myyear,
                 gender = mygender,
                 typeOfUser = mytypeOfUser
             };
@@ -147,7 +147,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPost]
         public bool Post([FromBody] Users value)
         {
-            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Age, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @age, @gender, @typeOfUser); ";
+            string inseartString = "INSERT INTO dbo.Users (FirstName, LastName, UserName, Pass, Year, Gender, TypeOfUser) values(@firstName, @lastName, @userName, @pass, @year, @gender, @typeOfUser); ";
 
             bool item = CheckUsernameValidation(value.userName);
 
@@ -163,7 +163,7 @@ namespace TheBerthaRestConsumer.Controllers
                         command.Parameters.AddWithValue("@lastName", value.lastName);
                         command.Parameters.AddWithValue("@userName", value.userName);
                         command.Parameters.AddWithValue("@pass", value.pass);
-                        command.Parameters.AddWithValue("@age", value.age);
+                        command.Parameters.AddWithValue("@year", value.year);
                         command.Parameters.AddWithValue("@gender", value.gender);
                         command.Parameters.AddWithValue("@typeOfUser", value.typeOfUser);
 
@@ -207,7 +207,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPut("{id}")]
         public int Put(int id, [FromBody] Users value)
         {
-            string updateString = "update Users set FirstName = @firstName, LastName = @lastName, UserNAme = @userName, Pass = @pass, Age = @age, Gender = @gender, TypeOfUser = @TypeOfUser where id = @id; ";
+            string updateString = "update Users set FirstName = @firstName, LastName = @lastName, UserNAme = @userName, Pass = @pass, Year = @year, Gender = @gender, TypeOfUser = @TypeOfUser where id = @id; ";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -218,7 +218,7 @@ namespace TheBerthaRestConsumer.Controllers
                     command.Parameters.AddWithValue("@lastName", value.lastName);
                     command.Parameters.AddWithValue("@userName", value.userName);
                     command.Parameters.AddWithValue("@pass", value.pass);
-                    command.Parameters.AddWithValue("@age", value.age);
+                    command.Parameters.AddWithValue("@year", value.year);
                     command.Parameters.AddWithValue("@gender", value.gender);
                     command.Parameters.AddWithValue("@typeOfUser", value.typeOfUser);
                     int rowAffected = command.ExecuteNonQuery();
