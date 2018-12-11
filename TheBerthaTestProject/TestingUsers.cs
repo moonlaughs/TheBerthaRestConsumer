@@ -21,7 +21,7 @@ namespace TheBerthaTestProject
             Assert.AreEqual(3, usersList.Count());
 
             Users users = _controller.Get(1);
-            Assert.AreEqual("Izq", users.FirstName);
+            Assert.AreEqual("Izq", users.firstName);
 
             users = _controller.Get(8);
             Assert.IsNull(users); // Passed
@@ -32,16 +32,16 @@ namespace TheBerthaTestProject
         {
             Users newUsers = new Users
             {
-                FirstName ="Milena",
-                LastName = "Ognianova",
-                UserName = "mimi",
-                Pass = "pass",
-                Age = 20,
-                Gender = "F",
-                TypeOfUser ="S"
+                firstName ="Milena",
+                lastName = "Ognianova",
+                userName = "mimi",
+                pass = "pass",
+                year = 20,
+                gender = "F",
+                typeOfUser ="S"
             };
-            int usersCount = _controller.Post(newUsers);
-            Assert.AreEqual(1, usersCount);
+            bool usersCount = _controller.Post(newUsers);
+            Assert.AreEqual(true, usersCount);
 
             IEnumerable<Users> usersList = _controller.Get();
             Assert.AreEqual(4, usersList.Count()); // Passed
@@ -52,16 +52,16 @@ namespace TheBerthaTestProject
         { 
             Users newUsers = new Users()
             {
-                FirstName = "Izabela",
-                LastName = "k",
-                UserName = "ooo",
-                Pass = "ooo",
-                Age = 20,
-                Gender = "F",
-                TypeOfUser = "U"
+                firstName = "Izabela",
+                lastName = "k",
+                userName = "ooo",
+                pass = "ooo",
+                year = 20,
+                gender = "F",
+                typeOfUser = "U"
             };
             int usersCount = _controller.Put(1, newUsers);
-            Assert.AreEqual("Izabela", newUsers.FirstName); // Passed
+            Assert.AreEqual("Izabela", newUsers.firstName); // Passed
         }
 
         [TestMethod]
