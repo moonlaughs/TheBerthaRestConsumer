@@ -207,7 +207,7 @@ namespace TheBerthaRestConsumer.Controllers
         [HttpPut("{id}")]
         public int Put(int id, [FromBody] Users value)
         {
-            string updateString = "update Users set FirstName = @firstName, LastName = @lastName, UserNAme = @userName, Pass = @pass, Year = @year, Gender = @gender, TypeOfUser = @TypeOfUser where id = @id; ";
+            string updateString = "update Users set FirstName = @firstName, LastName = @lastName, UserName = @userName, Pass = @pass, Year = @year, Gender = @gender, TypeOfUser = @TypeOfUser where id = @id; ";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
