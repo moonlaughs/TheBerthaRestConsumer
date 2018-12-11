@@ -9,7 +9,8 @@ using TheBerthaRestConsumer.Model;
 
 namespace TheBerthaTestProject
 {
-    class TestingTemp
+    [TestClass]
+    public class TestingTemp
     {
         private readonly TemperatureController _controller = new TemperatureController();
 
@@ -17,7 +18,7 @@ namespace TheBerthaTestProject
         public void TestGetAllTemp()
         {
             IEnumerable<Temperature> tempList = _controller.Get();
-            Assert.AreEqual(24, tempList.Count());
+            Assert.AreEqual(70, tempList.Count());
 
             Temperature temp = _controller.Get(1);
             Assert.AreEqual("1", temp.Id);
@@ -39,7 +40,7 @@ namespace TheBerthaTestProject
             Assert.AreEqual(1, tempCount);
 
             IEnumerable<Temperature> tempList = _controller.Get();
-            Assert.AreEqual(4, tempList.Count()); 
+            Assert.AreEqual(70, tempList.Count()); 
         }
     }
 }
